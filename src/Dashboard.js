@@ -156,19 +156,19 @@ function Dashboard() {
 
   return (
     <div>
-      <body id="page-top" style={{ background: "#161d32" }}>
+      <body id="page-top" >
         {/*  <!-- Page Wrapper --> */}
         <div
-          className="w3-bar w3-top w3-black w3-large"
-          style={{ zIndex: "4" }}
+          className="w3-bar w3-top w3-large"
+          style={{ zIndex: "4" ,background: " rgb(40, 48, 70)"}}
         >
           <button
-            className="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey"
+            className="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-blue text-white"
             onClick={w3_open}
           >
-            <i className="fa fa-bars"></i>Menu
+            <i className="fa fa-bars "></i>Menu
           </button>
-          <span className="w3-bar-item w3-right">Logo</span>
+          <span className="w3-bar-item w3-right text-white">Logo</span>
         </div>
 
         {/* <!-- Sidebar/menu --> */}
@@ -181,7 +181,6 @@ function Dashboard() {
           }}
           id="mySidebar"
         >
-          <br />
 
           <div className="w3-container">
             <h6 className="text-white">Dashboard</h6>
@@ -222,10 +221,11 @@ function Dashboard() {
                     className="row shadow h-100 py-2 justify-content-center "
                     style={{
                       background: "#283046",
-                      marginLeft: "1px",
-                      marginRight: "1px",
-                      marginTop: "6px",
-                      borderRadius: "5px",
+                      marginLeft: '1px',
+                      marginRight: '1px',
+                      marginTop: '15px',
+                      marginBottom: '7px',
+                      borderRadius: '5px'
                     }}
                   >
                     {/*  <!--  Card Example --> */}
@@ -243,6 +243,7 @@ function Dashboard() {
                           <p className="text-light m-0">App Installed</p>
                         </div>
                       </div>
+                      <hr/>
                     </div>
                     <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
                       <div className="row justify-content-center">
@@ -258,6 +259,7 @@ function Dashboard() {
                           <p className="text-light m-0">Active Installs</p>
                         </div>
                       </div>
+                      <hr/>
                     </div>
                     <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
                       <div className="row justify-content-center">
@@ -273,6 +275,7 @@ function Dashboard() {
                           <p className="text-light m-0">Churn Rate</p>
                         </div>
                       </div>
+                      <hr/>
                     </div>
                     <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
                       <div className="row justify-content-center">
@@ -288,6 +291,7 @@ function Dashboard() {
                           <p className="text-light m-0">App Un-Installed</p>
                         </div>
                       </div>
+                      <hr/>
                     </div>
                     <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
                       <div className="row justify-content-center">
@@ -303,6 +307,7 @@ function Dashboard() {
                           <p className="text-light m-0">Alive Apps users</p>
                         </div>
                       </div>
+                      <hr/>
                     </div>
                     <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
                       <div className="row justify-content-center">
@@ -318,6 +323,7 @@ function Dashboard() {
                           <p className="text-light m-0">Alive Churn Rate</p>
                         </div>
                       </div>
+                      <hr/>
                     </div>
                   </div>
                   <div className="row">
@@ -332,10 +338,10 @@ function Dashboard() {
                           <div className="row">
                             <div className="col-7 mt-1">
                               <div className="textSize">
-                                <label style={{ color: "white" }}>
+                                <label className="text-white">
                                   Show &nbsp;
                                 </label>
-                                <select onChange={filterRow}>
+                                <select className="text-black" onChange={filterRow}>
                                   <option selected value={"10"}>
                                     10
                                   </option>
@@ -366,7 +372,7 @@ function Dashboard() {
                                   <Modal.Header closeButton>
                                     <Modal.Title>Select Duration</Modal.Title>
                                   </Modal.Header>
-                                  <Modal.Body>
+                                  <Modal.Body style={{overflow:'auto'}}>
                                     <DateRangePicker
                                       onChange={(item) =>
                                         setState([item.selection])
@@ -482,15 +488,16 @@ function Dashboard() {
                     </div>
                   </div>
                 </div>
-                <Pagination
+                
+              </div>
+              <Pagination
                   className="pagination-bar"
                   currentPage={currentPage}
                   totalCount="118"
                   pageSize={datas.length}
                   onPageChange={(page) => setCurrentPage(page)}
                 />
-              </div>
-              <footer className="sticky-footer bg-white">
+              <footer className="sticky-footer bg-white" >
                 <div className="container my-auto">
                   <div className="copyright text-center my-auto">
                     <span>Copyright &copy; Your Website 2023</span>
