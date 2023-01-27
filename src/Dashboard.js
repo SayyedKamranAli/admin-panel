@@ -12,6 +12,7 @@ import { useMemo } from "react";
 import icon1 from "./image/icon/a1.PNG";
 import icon2 from "./image/icon/a2.PNG";
 import icon3 from "./image/icon/a3.PNG";
+import ReactPaginate from "react-paginate";
 
 function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -153,7 +154,6 @@ function Dashboard() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
   }
-
   return (
     <div>
       <body id="page-top" >
@@ -229,7 +229,7 @@ function Dashboard() {
                     }}
                   >
                     {/*  <!--  Card Example --> */}
-                    <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
+                    <div className="col-xl-4 col-sm-6 col-md-6 mb-4 ">
                       <div className="row justify-content-center">
                         <div className="col-md-2 col-xl-4 col-4">
                           <div>
@@ -245,7 +245,7 @@ function Dashboard() {
                       </div>
                       <hr/>
                     </div>
-                    <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
+                    <div className="col-xl-4 col-sm-6 col-md-6 mb-4 ">
                       <div className="row justify-content-center">
                         <div className="col-md-2 col-xl-4 col-4">
                           <div>
@@ -261,7 +261,7 @@ function Dashboard() {
                       </div>
                       <hr/>
                     </div>
-                    <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
+                    <div className="col-xl-4 col-sm-6 col-md-6 mb-4 ">
                       <div className="row justify-content-center">
                         <div className="col-md-2 col-xl-4 col-4">
                           <div className="img-fluid">
@@ -277,7 +277,7 @@ function Dashboard() {
                       </div>
                       <hr/>
                     </div>
-                    <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
+                    <div className="col-xl-4 col-sm-6 col-md-6 mb-4 ">
                       <div className="row justify-content-center">
                         <div className="col-md-2 col-xl-4 col-4">
                           <div>
@@ -293,7 +293,7 @@ function Dashboard() {
                       </div>
                       <hr/>
                     </div>
-                    <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
+                    <div className="col-xl-4 col-sm-6 col-md-6 mb-4 ">
                       <div className="row justify-content-center">
                         <div className="col-md-2 col-xl-4 col-4">
                           <div className="justify-content-center">
@@ -309,7 +309,7 @@ function Dashboard() {
                       </div>
                       <hr/>
                     </div>
-                    <div className="col-xl-4 col-sm-6 col-md-4 mb-4 ">
+                    <div className="col-xl-4 col-sm-6 col-md-6 mb-4">
                       <div className="row justify-content-center">
                         <div className="col-md-2 col-xl-4 col-4">
                           <div>
@@ -497,6 +497,9 @@ function Dashboard() {
                   pageSize={datas.length}
                   onPageChange={(page) => setCurrentPage(page)}
                 />
+                <div className="pagination">
+
+</div>
               <footer className="sticky-footer bg-white" >
                 <div className="container my-auto">
                   <div className="copyright text-center my-auto">
