@@ -34,3 +34,15 @@
     width: 0!important;
     overflow: hidden;
 }
+.size{
+    font-size:15px;
+}
+@media screen and (max-width: 480px) {
+    .size{
+        font-size:7px;
+    }
+    .textSize{
+        font-size:7px;
+    }
+
+  }
