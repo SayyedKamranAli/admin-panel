@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 /* import './index.css'; */
 import Dashboard from './Dashboard';
 import reportWebVitals from './reportWebVitals';
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -6,8 +6,6 @@ import { addDays, format } from "date-fns";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { DateRangePicker } from "react-date-range";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
 import * as Icon from "react-bootstrap-icons";
 import Pagination from "./pagination/Pagination";
 import { useMemo } from "react";
@@ -153,6 +151,7 @@ function Dashboard() {
       });
   }
   const handleShow = () => setShow(true);
+  const handleHide = () => setShow(false);
 
   return (
     <div>
@@ -345,7 +344,7 @@ function Dashboard() {
                             Select Duration
                           </Button>
 
-                          <Modal show={show} onHide={handleClose}>
+                          <Modal show={show} onHide={handleHide}>
                             <Modal.Header closeButton>
                               <Modal.Title>Select Duration</Modal.Title>
                             </Modal.Header>
@@ -360,7 +359,7 @@ function Dashboard() {
                               />
                             </Modal.Body>
                             <Modal.Footer>
-                              <Button variant="secondary" onClick={handleClose}>
+                              <Button variant="secondary" onClick={handleHide}>
                                 Close
                               </Button>
                               <Button variant="primary" onClick={handleClose}>
@@ -440,7 +439,7 @@ function Dashboard() {
             <footer className="sticky-footer bg-white">
               <div className="container my-auto">
                 <div className="copyright text-center my-auto">
-                  <span>Copyright &copy; Your Website 2021</span>
+                  <span>Copyright &copy; Your Website 2023</span>
                 </div>
               </div>
             </footer>
