@@ -21,9 +21,7 @@ const Pagination = props => {
   });
 
   const [datas, setDatas] = useState([]);
-  console.log("datanew", datas);
-
-
+  
   
   // If there are less than 2 times in pagination range we shall not render the component
   if (currentPage === 0 || paginationRange.length < 2) {

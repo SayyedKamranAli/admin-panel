@@ -32,11 +32,10 @@ function Dashboard() {
 
   const filterRow = (e) => {
     let row = e.target.value;
-    axios
+    if((fromdate !== "" && todate !== "") && (format(new Date(fromdate), "yyyy") !== "2023" && format(new Date(todate), "yyyy") !== "2023")){
+      axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=2022-04-01&todate=2022-08-24&limit=" +
-          row +
-          ""
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+row+""
       )
 
       .then(function (response) {
@@ -47,9 +46,25 @@ function Dashboard() {
         // handle error
         console.log(error, "network");
       });
+    }
+    else{
+      axios
+      .get(
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=2022-04-01&todate=2022-08-24&limit="+row+""
+      )
+
+      .then(function (response) {
+        // handle success
+        setDatas(response.data.data.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error, "network");
+      });
+    }
+    
   };
 
-  let PageSize = 10;
   const currentTableData = useMemo(() => {
     const firstPageIndex = currentPage - 1;
 
@@ -96,11 +111,7 @@ function Dashboard() {
     setShow(false);
     axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=" +
-          fromdate +
-          "&todate=" +
-          todate +
-          ""
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+datas.length+""
       )
 
       .then(function (response) {
@@ -113,11 +124,7 @@ function Dashboard() {
       });
     axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticcount?fromdate=" +
-          fromdate +
-          "&todate=" +
-          todate +
-          ""
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticcount?fromdate="+fromdate+"&todate="+todate+""
       )
 
       .then(function (response) {
@@ -494,7 +501,7 @@ function Dashboard() {
                   className="pagination-bar"
                   currentPage={currentPage}
                   totalCount="118"
-                  pageSize={datas.length}
+                  pageSize={currentTableData.length}
                   onPageChange={(page) => setCurrentPage(page)}
                 />
                 <div className="pagination">
