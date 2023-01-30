@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
 import { usePagination, DOTS } from './usePagination';
-import './pagination.scss';
 import axios from 'axios';
 const Pagination = props => {
   const {
@@ -51,7 +50,10 @@ const Pagination = props => {
 
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <ul
+    <ul style={{display: 'flex',
+      listStyleType: 'none',
+      gap: '20px',
+    justifyContent:'center'}}
       className={classnames('pagination-container', { [className]: className })}
     >
        {/* Left navigation arrow */}
