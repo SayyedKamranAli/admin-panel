@@ -35,7 +35,7 @@ function Dashboard() {
   let difference = new Date(state[0].endDate).getTime() - new Date(state[0].startDate).getTime();
   let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
   TotalDays = TotalDays + 1;
-  console.log('TotalDays', TotalDays)
+
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -44,8 +44,7 @@ function Dashboard() {
 
     return datas.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, datas]);
-  console.log('currentTableData', currentTableData)
-  console.log('currentPage', currentPage)
+
 
 
   useEffect(() => {
@@ -152,8 +151,6 @@ function Dashboard() {
       });
   };
   
-  console.log('datas', datas.length)
-  console.log('response', response)
   const handleShow = () => setShow(true);
   const handleHide = () => setShow(false);
 
