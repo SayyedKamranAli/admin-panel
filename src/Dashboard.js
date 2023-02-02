@@ -7,22 +7,24 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { DateRangePicker } from "react-date-range";
 import * as Icon from "react-bootstrap-icons";
-import Pagination from "./pagination/Pagination";
 import { useMemo } from "react";
 import icon1 from "./image/icon/a1.PNG";
 import icon2 from "./image/icon/a2.PNG";
 import icon3 from "./image/icon/a3.PNG";
-import ReactPaginate from "react-paginate";
+import Pagination from "./pagination/Pagination";
+
+let PageSize = 10;
 
 function Dashboard() {
+ 
   const [currentPage, setCurrentPage] = useState(1);
   const [datas, setDatas] = useState([]);
   const [response, setResponse] = useState([]);
   const [values, setValues] = useState([]);
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: new Date("2022-04-01"),
+      endDate: new Date("2022-08-24"),
       key: "selection",
     },
   ]);
@@ -30,60 +32,33 @@ function Dashboard() {
   let fromdate = format(new Date(state[0].startDate), "yyyy-MM-dd");
   let todate = format(new Date(state[0].endDate), "yyyy-MM-dd");
 
-  const filterRow = (e) => {
-    let row = e.target.value;
-    if((fromdate !== "" && todate !== "") && (format(new Date(fromdate), "yyyy") !== "2023" && format(new Date(todate), "yyyy") !== "2023")){
-      axios
-      .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+row+""
-      )
-
-      .then(function (response) {
-        // handle success
-        setDatas(response.data.data.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error, "network");
-      });
-    }
-    else{
-      axios
-      .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=2022-04-01&todate=2022-08-24&limit="+row+""
-      )
-
-      .then(function (response) {
-        // handle success
-        setDatas(response.data.data.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error, "network");
-      });
-    }
-    
-  };
+  let difference = new Date(state[0].endDate).getTime() - new Date(state[0].startDate).getTime();
+  let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+  TotalDays = TotalDays + 1;
+  console.log('TotalDays', TotalDays)
 
   const currentTableData = useMemo(() => {
-    const firstPageIndex = currentPage - 1;
+    const firstPageIndex = (currentPage - 1) * PageSize;
 
-    let lastPageIndex = "";
-    lastPageIndex = datas.length;
+    const lastPageIndex = firstPageIndex + PageSize;
 
     return datas.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, datas]);
+  console.log('currentTableData', currentTableData)
+  console.log('currentPage', currentPage)
+
 
   useEffect(() => {
     axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=2022-04-01&todate=2022-08-24"
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&page=1&limit="+TotalDays+""
       )
 
       .then(function (response) {
         // handle success
         setDatas(response.data.data.data);
-        setResponse(response.data.data.pages);
+        setResponse(response.data.data.total_documents);
+        
       })
       .catch(function (error) {
         // handle error
@@ -105,18 +80,58 @@ function Dashboard() {
       });
   }, []);
 
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => {
-    setShow(false);
-    axios
+  const filterRow = (e) => {
+    let row = e.target.value;
+    setCurrentPage("1");
+    if((fromdate !== "" && todate !== "") && (format(new Date(fromdate), "yyyy") !== "2023" && format(new Date(todate), "yyyy") !== "2023")){
+      axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+datas.length+""
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+TotalDays+""
       )
 
       .then(function (response) {
         // handle success
         setDatas(response.data.data.data);
+        setResponse(response.data.data.total_documents);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error, "network");
+      });
+    }
+    else{
+      axios
+      .get(
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+TotalDays+""
+      )
+
+      .then(function (response) {
+        // handle success
+        setDatas(response.data.data.data);
+        setResponse(response.data.data.total_documents);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error, "network");
+      });
+    }
+    PageSize = row;
+    console.log('PageSize', PageSize)
+  };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setCurrentPage("1");
+    setShow(false);
+    axios
+      .get(
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+TotalDays+""
+      )
+      .then(function (response) {
+        // handle success
+        setDatas(response.data.data.data);
+        setResponse(response.data.data.total_documents);
       })
       .catch(function (error) {
         // handle error
@@ -136,6 +151,9 @@ function Dashboard() {
         console.log(error, "network");
       });
   };
+  
+  console.log('datas', datas.length)
+  console.log('response', response)
   const handleShow = () => setShow(true);
   const handleHide = () => setShow(false);
 
@@ -498,15 +516,14 @@ function Dashboard() {
                 
               </div>
               <Pagination
-                  className="pagination-bar"
-                  currentPage={currentPage}
-                  totalCount="118"
-                  pageSize={currentTableData.length}
-                  onPageChange={(page) => setCurrentPage(page)}
-                />
-                <div className="pagination">
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={datas.length}
+        pageSize={PageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
+                <div className="pagination"></div>
 
-</div>
               <footer className="sticky-footer bg-white" >
                 <div className="container my-auto">
                   <div className="copyright text-center my-auto">

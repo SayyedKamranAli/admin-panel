@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import { usePagination, DOTS } from './usePagination';
-import axios from 'axios';
+
 const Pagination = props => {
   const {
     onPageChange,
@@ -19,30 +19,14 @@ const Pagination = props => {
     pageSize
   });
 
-  const [datas, setDatas] = useState([]);
-  
-  
   // If there are less than 2 times in pagination range we shall not render the component
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
 
   const onNext = () => {
-    //onPageChange(currentPage + 1);
-    axios
-    .get(
-      "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=2022-04-01&todate=2022-08-24&page="+currentPage+"&limit="+pageSize+""
-    )
-
-    .then(function (response) {
-      // handle success
-      setDatas(response.data.data);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error, "network");
-    });
-  };  
+    onPageChange(currentPage + 1);
+  };
 
   const onPrevious = () => {
     onPageChange(currentPage - 1);
@@ -51,9 +35,9 @@ const Pagination = props => {
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
     <ul style={{display: 'flex',
-      listStyleType: 'none',
-      gap: '20px',
-    justifyContent:'center'}}
+    listStyleType: 'none',
+    gap: '20px',
+  justifyContent:'end', cursor: 'pointer'}}
       className={classnames('pagination-container', { [className]: className })}
     >
        {/* Left navigation arrow */}
