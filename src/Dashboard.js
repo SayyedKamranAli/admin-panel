@@ -25,6 +25,7 @@ function Dashboard() {
     {
       startDate: new Date("2022-04-01"),
       endDate: new Date("2022-08-24"),
+      pageSize: 10,
       key: "selection",
     },
   ]);
@@ -36,7 +37,6 @@ function Dashboard() {
   let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
   TotalDays = TotalDays + 1;
 
-
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
 
@@ -44,7 +44,6 @@ function Dashboard() {
 
     return datas.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, datas]);
-
 
 
   useEffect(() => {
@@ -56,7 +55,7 @@ function Dashboard() {
       .then(function (response) {
         // handle success
         setDatas(response.data.data.data);
-        setResponse(response.data.data.total_documents);
+        //setResponse(response.data.data.total_documents);
         
       })
       .catch(function (error) {
@@ -116,7 +115,6 @@ function Dashboard() {
       });
     }
     PageSize = row;
-    console.log('PageSize', PageSize)
   };
 
   const [show, setShow] = useState(false);
@@ -441,8 +439,8 @@ function Dashboard() {
                             </tr>
                           </thead>
                           <tbody>
-                            {currentTableData.map((item) => (
-                              <tr>
+                            {currentTableData.map((item , key) => (
+                              <tr key={key}>
                                 <td>
                                   {format(
                                     new Date(item.created_At),
