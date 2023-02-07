@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Dashboard.css";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
@@ -13,14 +13,13 @@ import icon2 from "./image/icon/a2.PNG";
 import icon3 from "./image/icon/a3.PNG";
 import Pagination from "./pagination/Pagination";
 
-let PageSize = 10;
-
 function Dashboard() {
  
   const [currentPage, setCurrentPage] = useState(1);
   const [datas, setDatas] = useState([]);
   const [response, setResponse] = useState([]);
   const [values, setValues] = useState([]);
+  const [pageSize, setPageSize] = useState(10)
   const [state, setState] = useState([
     {
       startDate: new Date("2022-04-01"),
@@ -38,18 +37,17 @@ function Dashboard() {
   TotalDays = TotalDays + 1;
 
   const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
+    
+    const firstPageIndex = (currentPage - 1) * pageSize;
 
-    const lastPageIndex = firstPageIndex + PageSize;
+    const lastPageIndex = parseInt(firstPageIndex) + parseInt(pageSize);
 
     return datas.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, datas]);
-
-
+  }, [currentPage, datas, pageSize]);
   useEffect(() => {
     axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&page=1&limit="+TotalDays+""
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&page=1&limit="+1000+""
       )
 
       .then(function (response) {
@@ -81,11 +79,12 @@ function Dashboard() {
 
   const filterRow = (e) => {
     let row = e.target.value;
+    setPageSize(row);
     setCurrentPage(1);
-    if((fromdate !== "" && todate !== "") && (format(new Date(fromdate), "yyyy") !== "2023" && format(new Date(todate), "yyyy") !== "2023")){
+    /*if((fromdate !== "" && todate !== "") && (format(new Date(fromdate), "yyyy") !== "2023" && format(new Date(todate), "yyyy") !== "2023")){
       axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+TotalDays+""
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+row+""
       )
 
       .then(function (response) {
@@ -113,8 +112,8 @@ function Dashboard() {
         // handle error
         console.log(error, "network");
       });
-    }
-    PageSize = row;
+    }*/
+    
   };
 
   const [show, setShow] = useState(false);
@@ -123,7 +122,7 @@ function Dashboard() {
     setShow(false);
     axios
       .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+TotalDays+""
+        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+1000+""
       )
       .then(function (response) {
         // handle success
@@ -365,6 +364,7 @@ function Dashboard() {
                                   <option selected value={"10"}>
                                     10
                                   </option>
+                                  <option value={"20"}>20</option>
                                   <option value={"50"}>50</option>
                                   <option value={"100"}>100</option>
                                   <option value={"500"}>500</option>
@@ -516,8 +516,10 @@ function Dashboard() {
         className="pagination-bar"
         currentPage={currentPage}
         totalCount={datas.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
+        pageSize={pageSize}
+        onPageChange={(page) => {
+          setCurrentPage(page)}
+        }
       />
                 <div className="pagination"></div>
 
