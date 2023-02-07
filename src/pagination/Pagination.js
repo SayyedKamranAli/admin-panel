@@ -19,6 +19,15 @@ const Pagination = props => {
     pageSize
   });
 
+  const styles = {
+    selected:{
+      backgroundColor: "lightgrey",
+      padding: "0px 5px",
+      borderRadius: "5px",
+      border: "1px grey solid"
+    }
+  };
+
   // If there are less than 2 times in pagination range we shall not render the component
   if (currentPage === 0 || paginationRange && paginationRange.length < 2) {
     return null;
@@ -41,7 +50,7 @@ const Pagination = props => {
       className={classnames('pagination-container', { [className]: className })}
     >
        {/* Left navigation arrow */}
-      <li
+      <li 
         className={classnames('pagination-item', {
           disabled: currentPage === 1
         })}
@@ -53,16 +62,15 @@ const Pagination = props => {
          
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return <li  className="pagination-item dots">&#8230;</li>;
         }
 		
         // Render our Page Pills
         return (
-          <li
-            className={classnames('pagination-item', {
-              selected: pageNumber === currentPage
-            })}
+          <li 
+            className={classnames('pagination-item')}
             onClick={() => onPageChange(pageNumber)}
+            style={(pageNumber === currentPage) ? styles.selected: {}}
           >
             {pageNumber}
           </li>

@@ -81,7 +81,7 @@ function Dashboard() {
 
   const filterRow = (e) => {
     let row = e.target.value;
-    setCurrentPage("1");
+    setCurrentPage(1);
     if((fromdate !== "" && todate !== "") && (format(new Date(fromdate), "yyyy") !== "2023" && format(new Date(todate), "yyyy") !== "2023")){
       axios
       .get(
@@ -119,7 +119,7 @@ function Dashboard() {
 
   const [show, setShow] = useState(false);
   const handleClose = () => {
-    setCurrentPage("1");
+    setCurrentPage(1);
     setShow(false);
     axios
       .get(
@@ -380,12 +380,14 @@ function Dashboard() {
                                 className="control-pane"
                                 style={{ float: "right" }}
                               >
+                                <label for="selectDate" style={{color:"white"}}>Select Date</label>
                                 <Button
+                                  id="selectDate"
                                   style={{ backgroundColor: "#283046" }}
                                   className="size"
                                   onClick={handleShow}
                                 >
-                                  Select Duration
+                                  {format(new Date(state[0].startDate), "dd/MM/yyyy")} - {format(new Date(state[0].endDate), "dd/MM/yyyy")}
                                 </Button>
 
                                 <Modal show={show} onHide={handleHide}>
@@ -547,3 +549,5 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+
