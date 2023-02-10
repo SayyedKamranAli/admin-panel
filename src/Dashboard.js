@@ -80,40 +80,7 @@ function Dashboard() {
   const filterRow = (e) => {
     let row = e.target.value;
     setPageSize(row);
-    setCurrentPage(1);
-    /*if((fromdate !== "" && todate !== "") && (format(new Date(fromdate), "yyyy") !== "2023" && format(new Date(todate), "yyyy") !== "2023")){
-      axios
-      .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+row+""
-      )
-
-      .then(function (response) {
-        // handle success
-        setDatas(response.data.data.data);
-        setResponse(response.data.data.total_documents);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error, "network");
-      });
-    }
-    else{
-      axios
-      .get(
-        "https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate="+fromdate+"&todate="+todate+"&limit="+TotalDays+""
-      )
-
-      .then(function (response) {
-        // handle success
-        setDatas(response.data.data.data);
-        setResponse(response.data.data.total_documents);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error, "network");
-      });
-    }*/
-    
+    setCurrentPage(1); 
   };
 
   const [show, setShow] = useState(false);
@@ -230,9 +197,9 @@ function Dashboard() {
         ></div>
         <div class="w3-main" style={{ marginLeft: "300px", marginTop: "43px" }}>
           <div id="wrapper">
-            <div id="content-wrapper" className="d-flex flex-column">
+            <div id="content-wrapper" className="d-flex flex-column" style={{backgroundColor:'#171d32'}}>
               {/*  <!-- Main Content --> */}
-              <div id="content">
+              <div id="content" style={{backgroundColor:'#171d32'}}>
                 {/* <!-- Begin Page Content --> */}
                 <div className="container-fluid ">
                   {/*  <!-- Content Row --> */}
@@ -348,7 +315,7 @@ function Dashboard() {
                   <div className="row">
                     {/*   <!-- Area Chart --> */}
                     <div className="col-xl-12 col-lg-12">
-                      <div className="card shadow mb-4">
+                      <div className="card shadow mb-4" style={{backgroundColor:'#283046',padding:'10px'}}>
                         {/*  <!-- Card Header - Dropdown --> */}
                         <div
                           className="card-header py-3 "
@@ -428,9 +395,9 @@ function Dashboard() {
 
                         {/*  <!-- Card Body --> */}
 
-                        <Table responsive striped bordered hover variant="dark">
+                        <Table responsive    >
                           <thead>
-                            <tr>
+                            <tr style={{backgroundColor:'#271c1c',color:'white'}}>
                               <th>Date</th>
                               <th>Day Installs</th>
                               <th>Plateform</th>
@@ -442,15 +409,15 @@ function Dashboard() {
                           </thead>
                           <tbody>
                             {currentTableData.map((item , key) => (
-                              <tr key={key}>
-                                <td>
+                              <tr key={key} style={{ backgroundColor: "#283046" ,color:'white' ,fontSize:'11px'}}>
+                                <td style={{color:'white'}}>
                                   {format(
                                     new Date(item.created_At),
                                     "dd MMMM yyyy"
                                   )}
                                 </td>
-                                <td>{item.totalinstall}</td>
-                                <td>
+                                <td style={{color:'white'}}>{item.totalinstall}</td>
+                                <td style={{color:'white'}}>
                                   <i
                                     className="fa-1x mx-1"
                                     style={{ color: "#ffffff" }}
@@ -467,8 +434,8 @@ function Dashboard() {
                                   </i>{" "}
                                   {item.ios_install}
                                 </td>
-                                <td>{item.totaluninstall}</td>
-                                <td>
+                                <td style={{color:'white'}}>{item.totaluninstall}</td>
+                                <td style={{color:'white'}}>
                                   <i
                                     className="fa-1x mx-1"
                                     style={{ color: "#ffffff" }}
@@ -485,8 +452,8 @@ function Dashboard() {
                                   </i>{" "}
                                   {item.ios_uninstall}
                                 </td>
-                                <td>{item.totalchurn}</td>
-                                <td>
+                                <td style={{color:'white'}}>{item.totalchurn}</td>
+                                <td style={{color:'white'}}>
                                   <i
                                     className="fa-1x mx-1"
                                     style={{ color: "#ffffff" }}
@@ -523,13 +490,13 @@ function Dashboard() {
       />
                 <div className="pagination"></div>
 
-              <footer className="sticky-footer bg-white" >
+              {/* <footer className="sticky-footer bg-white" >
                 <div className="container my-auto">
                   <div className="copyright text-center my-auto">
                     <span>Copyright &copy; Your Website 2023</span>
                   </div>
                 </div>
-              </footer>
+              </footer> */}
               {/* <!-- End of Footer --> */}
             </div>
             {/*  <!-- End of Content Wrapper --> */}

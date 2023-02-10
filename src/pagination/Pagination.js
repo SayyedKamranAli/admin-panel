@@ -21,10 +21,10 @@ const Pagination = props => {
 
   const styles = {
     selected:{
-      backgroundColor: "lightgrey",
-      padding: "0px 5px",
-      borderRadius: "5px",
-      border: "1px grey solid"
+      backgroundColor: "#463fa0",
+      padding: "1px 6px",
+      borderRadius: "15px",
+      
     }
   };
 
@@ -44,13 +44,14 @@ const Pagination = props => {
   let lastPage = paginationRange && paginationRange[paginationRange.length - 1];
   return (
     <ul style={{display: 'flex',
+    color:'white',
     listStyleType: 'none',
     gap: '20px',
-  justifyContent:'end', cursor: 'pointer'}}
+  justifyContent:'end', cursor: 'pointer',backgroundColor:'#171d32',fontSize:'11px'}}
       className={classnames('pagination-container', { [className]: className })}
     >
        {/* Left navigation arrow */}
-      <li 
+      <li style={{}}
         className={classnames('pagination-item', {
           disabled: currentPage === 1
         })}
