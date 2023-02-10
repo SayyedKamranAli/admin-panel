@@ -22,7 +22,7 @@ const Pagination = props => {
   const styles = {
     selected:{
       backgroundColor: "#463fa0",
-      padding: "1px 6px",
+      padding: "2px 8px",
       borderRadius: "15px",
       
     }
@@ -47,7 +47,7 @@ const Pagination = props => {
     color:'white',
     listStyleType: 'none',
     gap: '20px',
-  justifyContent:'end', cursor: 'pointer',backgroundColor:'#171d32',fontSize:'11px'}}
+  justifyContent:'end', cursor: 'pointer',backgroundColor:'#171d32'}}
       className={classnames('pagination-container', { [className]: className })}
     >
        {/* Left navigation arrow */}

@@ -397,7 +397,7 @@ function Dashboard() {
 
                         <Table responsive    >
                           <thead>
-                            <tr style={{backgroundColor:'#271c1c',color:'white'}}>
+                            <tr style={{backgroundColor:'#271c1c',color:'white' }}>
                               <th>Date</th>
                               <th>Day Installs</th>
                               <th>Plateform</th>
@@ -409,7 +409,7 @@ function Dashboard() {
                           </thead>
                           <tbody>
                             {currentTableData.map((item , key) => (
-                              <tr key={key} style={{ backgroundColor: "#283046" ,color:'white' ,fontSize:'11px'}}>
+                              <tr key={key} style={{ backgroundColor: "#283046" ,color:'white' }}>
                                 <td style={{color:'white'}}>
                                   {format(
                                     new Date(item.created_At),
